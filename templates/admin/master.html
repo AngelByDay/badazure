@@ -1,0 +1,12 @@
+{% extends admin_base_template %}
+{% block head_meta %}
+<link href="/static/img/badazure.ico" rel="shortcut icon" type="image/x-icon" />
+{% endblock %}
+{% block tail %}
+<script type="text/javascript">
+    $('.summernote').summernote({
+        codeviewFilter: true,
+        codeviewIframeFilter: true
+    });
+</script>
+{% endblock %}
