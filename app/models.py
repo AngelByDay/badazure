@@ -1,19 +1,16 @@
 # imports
+import app
 from peewee import Model, SqliteDatabase
 from peewee import IntegerField, CharField, TextField
 
-db = SqliteDatabase('badazure.db')
+#Database
+db = SqliteDatabase('./app/badazure.db')
 
+class BaseModel(Model):
+     class Meta:
+         database = db
 
-def connect_db():
-
-    db.connect()
-
-    if (db.table_exists('BadAzureLevel') == False): {
-        db.create_tables([BadAzureLevel,])
-    }
-
-class BadAzureLevel(Model):
+class BadAzureLevel(BaseModel):
     level_no = IntegerField(null=False, index=True, primary_key=True)
     level_name = CharField(null=False)
     intro_text = TextField(null=False)
@@ -22,6 +19,3 @@ class BadAzureLevel(Model):
     hint_2_text = TextField(null=True)
     admin_notes = TextField(null=True)
     level_flag = CharField(null=True)
-
-    class Meta:
-        database = db

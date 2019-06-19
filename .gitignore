@@ -9,6 +9,7 @@
 *.userosscache
 *.sln.docstates
 .vscode/
+app/badazure.db
 
 # Python Environment
 [Ll]ib
@@ -337,3 +338,4 @@ ASALocalRun/
 .mfractor/
 .vscode/settings.json
 .DS_Store
+app/templates/security/-login_user.html
