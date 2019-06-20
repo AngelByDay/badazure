@@ -4,7 +4,7 @@ from peewee import Model, SqliteDatabase
 from peewee import IntegerField, CharField, TextField
 
 #Database
-db = SqliteDatabase('./app/badazure.db')
+db = SqliteDatabase('badazure.db')
 
 class BaseModel(Model):
      class Meta:
