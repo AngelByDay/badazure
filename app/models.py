@@ -1,10 +1,16 @@
 # imports
+import logging
 import app
 from peewee import Model, SqliteDatabase
 from peewee import IntegerField, CharField, TextField
 
+# Configure Logging
+logger = logging.getLogger(__name__)
+
 #Database
+logger.info('Creating database connection.')
 db = SqliteDatabase('badazure.db')
+logger.debug('Database connection ' + str(db.connect()))
 
 class BaseModel(Model):
      class Meta:
