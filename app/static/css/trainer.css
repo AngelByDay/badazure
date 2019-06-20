@@ -1,6 +1,3 @@
-/*
-    DEMO STYLE
-*/
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
@@ -10,10 +7,8 @@ body {
 
 p {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #999;
+    font-size: 12px;
+    color: navy;
 }
 
 a,
@@ -46,8 +41,8 @@ a:focus {
     margin: 40px 0;
 }
 
-#pageheader {
-    font-size: 2rem;
+.pageheader {
+    font-size: 2em;
     margin-bottom: .5rem;
     font-weight: 500;
     line-height: 1.2;
