@@ -111,21 +111,28 @@
 
             <!-- Page View-->
             <div id="pageview">
-                <div id="level_name" class="pageheader">Level</div>
-                <h2>Introduction</h2>
                 <div id="intro_text"></div>
                 <div class="line"></div>
 
-                <h2>Instructions</h2>
+                <div id="level_name" class="pageheader">Level</div>
                 <div id="level_instructions"></div>
                 <div class="line"></div>
 
-                <h3>Hint 1</h3>
-                <div id="hint_1_text"></div>
-                <div class="line"></div>
+                <button data-toggle="collapse" data-target="#hint_1" class="btn btn-info">Show Hint 1</button>
+                <br><br>
+                <div id="hint_1" class=collapse>
+                    <h3>Hint 1</h3>
+                    <div id="hint_1_text"></div>
+                    <div class="line"></div>
+                </div>
 
-                <h3>Hint 2</h3>
-                <div id="hint_2_text"></div>
+                <button data-toggle="collapse" data-target="#hint_2" class="btn btn-info">Show Hint 2</button>
+                <br><br>
+                <div id="hint_2" class=collapse>
+                    <h3>Hint 2</h3>
+                    <div id="hint_2_text"></div>
+                    <div class="line"></div>
+                </div>
             </div>
 
         </div>
@@ -181,7 +188,7 @@
                 //Parse received data
                 //View Mode - Populate display fields
                 $('#pageview').show();
-                $('#level_name').text('Level ' + level_no + ' - ' + data.level_name);
+                $('#level_name').text('Instructions: Level  ' + level_no + ' - ' + data.level_name);
                 $('#intro_text').html(data.intro_text)
                 $('#level_instructions').html(data.level_instructions)
                 $('#hint_1_text').html(data.hint_1_text)

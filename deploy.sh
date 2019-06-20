@@ -1,5 +1,10 @@
 echo Python deployment.
 
+
+echo "Deployment Source: $DEPLOYMENT_SOURCE"
+echo "Deployment Target: $DEPLOYMENT_TARGET"
+
+
 # 1. KuduSync
 
 if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
@@ -17,9 +22,6 @@ if [ "$WEBSITE_PYTHON_VERSION" = "3.6" ]; then
     export ANTENV="antenv3.6"
     export PYTHON3="python3.6"
 fi
-
-echo "$DEPLOYMENT_SOURCE"
-echo "$DEPLOYMENT_TARGET"
 
 
 if [ -e "$DEPLOYMENT_TARGET/requirements.txt" ]; then
