@@ -16,6 +16,7 @@ app/badazure.db
 [Ii]nclude
 .Python/
 [Ee]nv
+app/[Ee]nv/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
