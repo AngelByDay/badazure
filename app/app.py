@@ -62,11 +62,6 @@ app.config['SECURITY_PASSWORD_SALT'] = 'bser345o9823bcy8bs36874edbn8yw4rc25466ty
 def before_first_request():
 
     logger.info('Running \'first run\' actions.')
-
-    # Create any database tables that don't exist yet.
-    logger.debug('Creating database tables.')
-    models.db.create_tables([BadAzureLevel, Role, UserRoles, User ])
-
     # Create the Roles "admin" and "end-user" -- unless they already exist
     logger.debug('Creating default user roles.')
     user_datastore.find_or_create_role(name='admin', description='Administrator')

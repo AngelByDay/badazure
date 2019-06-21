@@ -29,3 +29,4 @@ class BadAzureLevel(BaseModel):
     references = TextField(null=True)
     admin_notes = TextField(null=True)
     level_flag = CharField(null=True)
+BadAzureLevel.create_table()

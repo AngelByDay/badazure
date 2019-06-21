@@ -8,12 +8,14 @@ from flask_security import Security, PeeweeUserDatastore, \
 class Role(BaseModel, RoleMixin):
     name = CharField(unique=True)
     description = TextField(null=True)
+Role.create_table()
 
 class User(BaseModel, UserMixin):
     email = TextField()
     password = TextField()
     active = BooleanField(default=True)
     confirmed_at = DateTimeField(null=True)
+User.create_table()
 
 class UserRoles(BaseModel):
     # Because peewee does not come with built-in many-to-many
@@ -23,3 +25,4 @@ class UserRoles(BaseModel):
     role = ForeignKeyField(Role, related_name='users')
     name = property(lambda self: self.role.name)
     description = property(lambda self: self.role.description)
+UserRoles.create_table()
