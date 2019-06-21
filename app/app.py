@@ -13,16 +13,18 @@
 
 # Imports
 import logging
-from flask import Flask, app, render_template, Request, Response, url_for
+from flask import Flask, app, render_template, Request, Response, url_for, request, jsonify
 from flask_restful import reqparse, abort, Api, Resource
 from flask_admin import Admin, helpers as admin_helpers, AdminIndexView
 from flask_security import Security, PeeweeUserDatastore, \
     UserMixin, RoleMixin, login_required, current_user, utils
 from playhouse.shortcuts import model_to_dict, dict_to_model
+from peewee import StringExpression
 import models
 from models import BadAzureLevel
 from ba_security import User, UserRoles, Role
 from ba_admin import *
+from flask_marshmallow import Marshmallow, Schema
 import json
 
 ################################
@@ -131,8 +133,6 @@ admin.add_view(UserAdmin(User))
 admin.add_view(RoleAdmin(Role))
 
 
-
-
 ################################
 ###         ROUTES           ###
 ################################
@@ -153,21 +153,38 @@ def trainer():
 
 # Setup API
 api = Api(app)
+ma = Marshmallow(app)
+
+# Define Schemas
+
+class BadAzureLevelSchema(Schema):
+
+    class Meta:
+        fields = \
+            ("level_no", "level_name", "intro_text", "level_instructions", \
+            "hint_1_text", "hint_2_text", "hint_3_text", "hint_4_text", "answer_text", "references",\
+            "admin_notes", "level_flag")
+        
+    _links = ma.Hyperlinks(
+        {"self": ma.URLFor("level", id="<level>"), "collection": ma.URLFor("level")}
+    )
+
+ba_level_schema = BadAzureLevelSchema()
+ba_levels_schema = BadAzureLevelSchema(many=True)
 
 # API Responses
-
 class BALevel(Resource):
-    def get(self, level):  # READ
-        ba_level = None
-        try:
-            ba_level = BadAzureLevel.select().where(BadAzureLevel.level_no == level).get()
-        except:
-            print('An error ocurred.')
-        if ba_level == None:
-            return Response(status=404)
+    def get(self, level=None):  # READ
+        # Check if level is specified
+        if level == None:
+            # Return all levels as JSON
+            return jsonify(ba_levels_schema.dump(BadAzureLevel.select()))
+
         else:
-            return Response(response=json.dumps(model_to_dict(ba_level)), status=200, mimetype='application/json')
-api.add_resource(BALevel, '/api/trainer/level/<int:level>')
+            # Return single level as JSON
+            return jsonify(ba_level_schema.dump(
+                    BadAzureLevel.select().where(BadAzureLevel.level_no == level).get()))
+api.add_resource(BALevel, '/api/trainer/level/', '/api/trainer/level/<int:level>', endpoint="level")
 
 
 #Startup Code

@@ -50,15 +50,6 @@
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Levels</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Level 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Level 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Level 3</a>
-                        </li>
                     </ul>
                 </li>
                 <li>
@@ -176,6 +167,16 @@
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
+
+            //Populate Level Menu
+            //Ajax Call
+            $.ajax({
+                url: '/api/trainer/level/'
+            }).then(function (data) {
+
+                $('#homeSubmenu').append('<li><a href="./?level=' + data.level_no + '">Level ' + data.level_no + '</a></li>');
+
+            })
 
             //Get Values
             var urlParams = new URLSearchParams(window.location.search);
