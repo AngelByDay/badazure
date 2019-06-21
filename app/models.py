@@ -1,8 +1,8 @@
 # imports
 import logging
-import app
 from peewee import Model, SqliteDatabase
 from peewee import IntegerField, CharField, TextField
+from marshmallow import Schema
 
 # Configure Logging
 logger = logging.getLogger(__name__)
@@ -23,5 +23,9 @@ class BadAzureLevel(BaseModel):
     level_instructions = TextField(null=True)
     hint_1_text = TextField(null=True)
     hint_2_text = TextField(null=True)
+    hint_3_text = TextField(null=True)
+    hint_4_text = TextField(null=True)
+    answer_text = TextField(null=True)
+    references = TextField(null=True)
     admin_notes = TextField(null=True)
     level_flag = CharField(null=True)
