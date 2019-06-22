@@ -173,9 +173,10 @@
             $.ajax({
                 url: '/api/trainer/level/'
             }).then(function (data) {
-
-                $('#homeSubmenu').append('<li><a href="./?level=' + data.level_no + '">Level ' + data.level_no + '</a></li>');
-
+                data[0].forEach(function (l) {
+                    $('#homeSubmenu').append('<li><a href="./?level=' + l.level_no + '">Level ' + l.level_no + '</a></li>');
+                }
+                )
             })
 
             //Get Values
@@ -189,11 +190,11 @@
                 //Parse received data
                 //View Mode - Populate display fields
                 $('#pageview').show();
-                $('#level_name').text('Instructions: Level  ' + level_no + ' - ' + data.level_name);
-                $('#intro_text').html(data.intro_text)
-                $('#level_instructions').html(data.level_instructions)
-                $('#hint_1_text').html(data.hint_1_text)
-                $('#hint_2_text').html(data.hint_2_text)
+                $('#level_name').text('Instructions: Level  ' + level_no + ' - ' + data[0].level_name);
+                $('#intro_text').html(data[0].intro_text)
+                $('#level_instructions').html(data[0].level_instructions)
+                $('#hint_1_text').html(data[0].hint_1_text)
+                $('#hint_2_text').html(data[0].hint_2_text)
 
             })
 
