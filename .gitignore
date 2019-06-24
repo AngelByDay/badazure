@@ -9,7 +9,7 @@
 *.userosscache
 *.sln.docstates
 .vscode/
-app/badazure.db
+*.db*
 
 # Python Environment
 [Ll]ib

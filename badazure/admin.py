@@ -1,9 +1,15 @@
 # Admin Views
+import logging
 from wtforms import TextAreaField
 from wtforms.fields import PasswordField
 from wtforms.widgets import TextArea
 from flask_admin.contrib.peewee import ModelView
 from flask_security import current_user, utils
+from security import UserRoles
+
+# Configure Logging
+logger = logging.getLogger().getChild(__name__)
+logger.propagate = True
 
 class SummernoteTextArea(TextArea):
     def __call__(self, field, **kwargs):
@@ -42,6 +48,9 @@ class UserAdmin(ModelView):
     # Automatically display human-readable names for the current and available Roles when creating or editing a User
     column_auto_select_related = True
 
+    # Inline Models
+    inline_models = (UserRoles,)
+
     # Prevent administration of Users unless the currently logged-in user has the "admin" role
     def is_accessible(self):
         return current_user.has_role('admin')
@@ -73,6 +82,8 @@ class UserAdmin(ModelView):
 
 # Customized Role model for SQL-Admin
 class RoleAdmin(ModelView):
+
+    inline_models = (UserRoles,)
 
     # Prevent administration of Roles unless the currently logged-in user has the "admin" role
     def is_accessible(self):

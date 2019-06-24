@@ -1,38 +1,22 @@
 #! python3
 
 
-#    ____            _____                      
-#   / __ )____ _____/ /   |____  __  __________ 
-#  / __  / __ `/ __  / /| /_  / / / / / ___/ _ \
-# / /_/ / /_/ / /_/ / ___ |/ /_/ /_/ / /  /  __/
-#/_____/\__,_/\__,_/_/  |_/___/\__,_/_/   \___/ 
+#     ____            _____                      
+#    / __ )____ _____/ /   |____  __  __________ 
+#   / __  / __ `/ __  / /| /_  / / / / / ___/ _ \
+#  / /_/ / /_/ / /_/ / ___ |/ /_/ /_/ / /  /  __/
+# /_____/\__,_/\__,_/_/  |_/___/\__,_/_/   \___/ 
 
 #BadAzure
 # (c) NCC Group 2019                                               
-
-
-# Imports
-import logging
-from flask import Flask, app, render_template, Request, Response, url_for, request, jsonify
-from flask_restful import reqparse, abort, Api, Resource
-from flask_admin import Admin, helpers as admin_helpers, AdminIndexView
-from flask_security import Security, PeeweeUserDatastore, \
-    UserMixin, RoleMixin, login_required, current_user, utils
-from playhouse.shortcuts import model_to_dict, dict_to_model
-from peewee import StringExpression
-import models
-from models import BadAzureLevel
-from ba_security import User, UserRoles, Role
-from ba_admin import *
-from flask_marshmallow import Marshmallow, Schema
-import json
 
 ################################
 ###         LOGGING          ###
 ################################
 
 # Setup Logging
-logger = logging.getLogger(__name__)
+import logging
+logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 fh = logging.FileHandler('./log/badazure.log')
 fh.setLevel(logging.DEBUG)
@@ -46,6 +30,27 @@ fh.setFormatter(formatter)
 # add the handlers to logger
 logger.addHandler(ch)
 logger.addHandler(fh)
+
+# Imports
+# Builtin Python
+import json
+# Database ORM support from PeeWee
+import peewee
+from peewee import StringExpression
+# Flask + RESTful, Security, Admin, Marshmallow, + Playhouse Extended for Web Application
+from flask import Flask, app, render_template, Request, Response, url_for, request, jsonify
+from flask_restful import reqparse, abort, Api, Resource
+from flask_admin import Admin, helpers as admin_helpers, AdminIndexView
+from flask_security import Security, PeeweeUserDatastore, \
+    UserMixin, RoleMixin, login_required, current_user, utils
+from flask_marshmallow import Marshmallow, Schema
+from playhouse.shortcuts import model_to_dict, dict_to_model
+# Application Imports (models, security and admin modules)
+import security
+from security import User, Role, UserRoles
+import models
+from models import BadAzureLevel
+from admin import *
 
 
 # Set Up Application
@@ -61,7 +66,7 @@ app.config['SECURITY_PASSWORD_SALT'] = 'bser345o9823bcy8bs36874edbn8yw4rc25466ty
 @app.before_first_request
 def before_first_request():
 
-    logger.info('Running \'first run\' actions.')
+    logger.info('Running \'first request\' actions.')
     # Create the Roles "admin" and "end-user" -- unless they already exist
     logger.debug('Creating default user roles.')
     user_datastore.find_or_create_role(name='admin', description='Administrator')
@@ -117,7 +122,7 @@ def security_context_processor():
 #Admin Index View Class
 class BAAdminIndexView(AdminIndexView):
     def is_accessible(self):
-        return current_user.is_authenticated # This does the trick rendering the view only if the user is authenticated
+        return current_user.has_role('admin')
 
 # Set Up Admin
 admin = Admin(app, name='BadAzure Admin', template_mode='bootstrap3', index_view=BAAdminIndexView())
@@ -160,9 +165,9 @@ class BadAzureLevelSchema(Schema):
             "hint_1_text", "hint_2_text", "hint_3_text", "hint_4_text", "answer_text", "references",\
             "admin_notes", "level_flag")
         
-    _links = ma.Hyperlinks(
-        {"self": ma.URLFor("level", id="<level>"), "collection": ma.URLFor("level")}
-    )
+    # _links = ma.Hyperlinks(
+    #     {"self": ma.URLFor("level", id="<level>"), "collection": ma.URLFor("level")}
+    #)
 
 ba_level_schema = BadAzureLevelSchema()
 ba_levels_schema = BadAzureLevelSchema(many=True)

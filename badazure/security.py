@@ -4,18 +4,32 @@ from peewee import *
 from models import BaseModel
 from flask_security import Security, PeeweeUserDatastore, \
     UserMixin, RoleMixin, login_required
+import logging
+
+# Configure Logging
+# Configure Logging
+logger = logging.getLogger().getChild(__name__)
+logger.propagate = True
 
 class Role(BaseModel, RoleMixin):
     name = CharField(unique=True)
     description = TextField(null=True)
-Role.create_table()
+try:
+    logger.info('Creating role table.')
+    Role.create_table()
+except Exception as err:
+    logger.error(err)
 
 class User(BaseModel, UserMixin):
     email = TextField()
     password = TextField()
     active = BooleanField(default=True)
     confirmed_at = DateTimeField(null=True)
-User.create_table()
+try:
+    logger.info('Creating user table.')
+    User.create_table()
+except Exception as err:
+    logger.error(err)
 
 class UserRoles(BaseModel):
     # Because peewee does not come with built-in many-to-many
@@ -25,4 +39,8 @@ class UserRoles(BaseModel):
     role = ForeignKeyField(Role, related_name='users')
     name = property(lambda self: self.role.name)
     description = property(lambda self: self.role.description)
-UserRoles.create_table()
+try:
+    logger.info('Creating user roles table.')
+    UserRoles.create_table()
+except Exception as err:
+    logger.error(err)
