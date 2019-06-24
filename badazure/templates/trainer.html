@@ -44,7 +44,7 @@
 
             <ul class="list-unstyled components">
                 <li>
-                    <a href="./trainer/instructions">Instructions</a>
+                    <a href="./trainer/?level=0">Instructions</a>
                 </li>
                 <!-- <p>Azure Levels</p> -->
                 <li class="active">
@@ -80,7 +80,7 @@
                         <i class="fas fa-align-justify"></i>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item active">
                                 <a class="nav-link" href="#">Page</a>
@@ -95,7 +95,7 @@
                                 <a class="nav-link" href="#">Page</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </nav>
 
@@ -109,7 +109,8 @@
                 <div id="level_instructions"></div>
                 <div class="line"></div>
 
-                <button data-toggle="collapse" data-target="#hint_1" class="btn btn-info">Show Hint 1</button>
+                <!-- Hint 1 -->
+                <button id="hint_1_btn" data-toggle="collapse" data-target="#hint_1" class="btn btn-info">Show Hint 1</button>
                 <br><br>
                 <div id="hint_1" class=collapse>
                     <h3>Hint 1</h3>
@@ -117,11 +118,30 @@
                     <div class="line"></div>
                 </div>
 
-                <button data-toggle="collapse" data-target="#hint_2" class="btn btn-info">Show Hint 2</button>
+                <!-- Hint 2 -->
+                <button id="hint_2_btn" data-toggle="collapse" data-target="#hint_2" class="btn btn-info">Show Hint 2</button>
                 <br><br>
                 <div id="hint_2" class=collapse>
                     <h3>Hint 2</h3>
                     <div id="hint_2_text"></div>
+                    <div class="line"></div>
+                </div>
+
+                <!-- Hint 3 -->
+                <button id="hint_3_btn" data-toggle="collapse" data-target="#hint_2" class="btn btn-info">Show Hint 3</button>
+                <br><br>
+                <div id="hint_3" class=collapse>
+                    <h3>Hint 3</h3>
+                    <div id="hint_3_text"></div>
+                    <div class="line"></div>
+                </div>
+
+                <!-- Hint 4-->
+                <button id="hint_4_btn" data-toggle="collapse" data-target="#hint_4" class="btn btn-info">Show Hint 4</button>
+                <br><br>
+                <div id="hint_4" class=collapse>
+                    <h3>Hint 4</h3>
+                    <div id="hint_4_text"></div>
                     <div class="line"></div>
                 </div>
             </div>
@@ -193,8 +213,10 @@
                 $('#level_name').text('Instructions: Level  ' + level_no + ' - ' + data[0].level_name);
                 $('#intro_text').html(data[0].intro_text)
                 $('#level_instructions').html(data[0].level_instructions)
-                $('#hint_1_text').html(data[0].hint_1_text)
-                $('#hint_2_text').html(data[0].hint_2_text)
+                if (data[0].hint_1_text != null) {$('#hint_1_text').html(data[0].hint_1_text)} else {$('#hint_1_btn').hide()}
+                if (data[0].hint_2_text != null) {$('#hint_2_text').html(data[0].hint_2_text)} else {$('#hint_2_btn').hide()}
+                if (data[0].hint_3_text != null) {$('#hint_3_text').html(data[0].hint_3_text)} else {$('#hint_3_btn').hide()}
+                if (data[0].hint_4_text != null) {$('#hint_4_text').html(data[0].hint_3_text)} else {$('#hint_4_btn').hide()}
 
             })
 
