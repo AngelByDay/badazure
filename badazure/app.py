@@ -38,7 +38,7 @@ import json
 import peewee
 from peewee import StringExpression
 # Flask + RESTful, Security, Admin, Marshmallow, + Playhouse Extended for Web Application
-from flask import Flask, app, render_template, Request, Response, url_for, request, jsonify
+from flask import Flask, app, render_template, Request, Response, url_for, request, jsonify, redirect
 from flask_restful import reqparse, abort, Api, Resource
 from flask_admin import Admin, helpers as admin_helpers, AdminIndexView
 from flask_security import Security, PeeweeUserDatastore, \
@@ -139,12 +139,36 @@ admin.add_view(RoleAdmin(Role))
 # Default Route for Landing Page
 @app.route("/")
 def index():
-    return render_template('main.html')
+    main_text = ("Welcome to BadAzure, a Microsoft Azure Security Training Platform.\n \
+                            Click \'Get Started\' to explore a world of Microsoft Azure Misconfigurations and \
+                            Vulnerabilities.")
+    return render_template('main.html', content_main=main_text)
+
+@app.route("/about")
+def page_about():
+    main_text = ("Welcome to BadAzure, a Microsoft Azure Security Training Platform.<br /> \
+                            Click \'Get Started\' to explore a world of Microsoft Azure Misconfigurations and \
+                            Vulnerabilities.")
+    return render_template('main.html', content_main=main_text)
+
+@app.route("/contact")
+def page_contact():
+    main_text = ("badazure@nccgroup.com")
+    return render_template('main.html', content_main=main_text)
 
 # Trainer Route
 @app.route("/trainer/")
 def trainer():
     return render_template('trainer.html')
+
+## Error Pages
+
+# 403 Unauthorised
+@app.errorhandler(403)
+def error_403_unauthorised(e):
+
+    logger.warning('User unauthorised.')
+    return redirect('/login',302)
 
 
 ################################

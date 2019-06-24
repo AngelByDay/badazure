@@ -7,21 +7,7 @@ from marshmallow import Schema
 # Configure Logging
 logger = logging.getLogger().getChild(__name__)
 logger.propagate = True
-# logger = logging.getLogger(__name__)
-# logger.setLevel(logging.DEBUG)
-# fh = logging.FileHandler('./log/badazure.log')
-# fh.setLevel(logging.DEBUG)
-# # Console Handler
-# ch = logging.StreamHandler()
-# ch.setLevel(logging.DEBUG)
-# # create formatter and add it to the handlers
-# formatter = logging.Formatter(
-#     '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# ch.setFormatter(formatter)
-# fh.setFormatter(formatter)
-# # add the handlers to logger
-# logger.addHandler(ch)
-# logger.addHandler(fh)
+
 
 # Database
 logger.info('Creating database connection.')

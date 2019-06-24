@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/css/style_main.css" rel="stylesheet">
-    <link href="/static/img/badazure.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href="/static/img/badazure.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
 
@@ -25,27 +25,40 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
         <div class="container">
+            <!-- Branding -->
+            <div class="collapse navbar-collapse pl-auto" id="navbarBranding">
+                <a href="https://www.nccgroup.com" target="_blank">
+                    <img src="/static/img/NCCLogo_med_white.svg" type="image/svg+xml" height="40px" />
+                </a>
+            </div>
+
+            <!-- Getting Started -->
+
             <a class="navbar-brand" href="/trainer/?level=0">Get Started</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Nav Items -->
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home
+                        <a class="nav-link" href="/#">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="/about">About</a>
                     </li>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="/contact">Contact</a>
                     </li>
                 </ul>
             </div>
+
+
         </div>
     </nav>
 
@@ -57,9 +70,8 @@
                     <!-- <h1 class="mt-5">The Big Picture</h1>-->
                     <img src="/static/img/badazure.png" />
                     <div class="textbox">
-                    <p class="whitetext">Welcome to BadAzure, a Microsoft Azure Security Training Platform.<br/>
-                    Click 'Get Started' to explore a world of Microsoft Azure Misconfigurations and Vulnerabilities.
-                    </p></div>
+                        <p class="whitetext">{{ content_main }}</p>
+                    </div>
                 </div>
             </div>
         </div>
