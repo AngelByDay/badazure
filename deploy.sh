@@ -48,6 +48,8 @@ fi
 
 #3. Default Configuration
 
-if [ ! -f "$DEPLOYMENT_TARGET/config.py"]; then
+if [ ! -f "$DEPLOYMENT_TARGET/config.py" ]; then
   echo "Configuration file config.py does not exist, please create."
 fi
+
+echo "Deployment Complete"
