@@ -337,6 +337,8 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Additional
 .vscode/settings.json
 .DS_Store
-app/templates/security/-login_user.html
+badazure/config.py
