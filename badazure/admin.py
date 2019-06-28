@@ -27,13 +27,15 @@ class BadAzureLevelAdminView(ModelView):
     extra_js = ['//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js']
     extra_css = ['//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css']
 
-    column_list = ['level_no', 'level_instructions', 'intro_text', 'hint_1_text', 'hint_2_text']
+    column_list = ['level_no', 'level_name',]
 
     form_overrides = {
         'level_instructions': SummernoteTextAreaField,
         'intro_text': SummernoteTextAreaField,
         'hint_1_text': SummernoteTextAreaField,
-        'hint_2_text': SummernoteTextAreaField
+        'hint_2_text': SummernoteTextAreaField,
+        'hint_3_text': SummernoteTextAreaField,
+        'hint_4_text': SummernoteTextAreaField
     }
 
     # Customized User model for SQL-Admin
